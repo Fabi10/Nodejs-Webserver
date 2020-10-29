@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>GEO Tracks</title>
+
+    <link rel="stylesheet" href="main.css"/>
+   
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin=""></script>
+
+   <script src="geomap.js"></script>
+</head>
+<body>
+    <div class="content">
+        <div id="map"></div>
+        <div id="geolist">
+            <div class="header">
+                <i class="arrow left"></i>
+                <i class="arrow right"></i>
+
+                <i>1/3</i>
+            </div>
+            <div id="geoDataEntries">
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        window.onload = function(e){
+            init()
+
+            var geoDataEntriesDiv = document.getElementById('geoDataEntries')
+            var innerDiv = document.createElement('div')
+            innerDiv.innerHTML += 'Test-Data'
+            innerDiv.onclick = function(e){
+                console.log('clicked that div!')
+                console.log(e.currentTarget.innerHTML)
+            }
+            geoDataEntriesDiv.appendChild(innerDiv)
+        }
+    </script>
+
+  
+</body>
+</html>
