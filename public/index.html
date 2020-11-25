@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de">
+
+<head>
+    <meta charset="UTF-8">
+    <title>GEO Tracks</title>
+
+    <link rel="stylesheet" href="main.css" />
+
+    <!-- Leaflet CSS File einbinden-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+
+    <!-- Leaflet Javascript File einbinden-->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div id="map"></div>
+        <div id="geolist">
+            <div class="header">
+                <i class="arrow left"></i>
+                <i class="arrow right"></i>
+
+                <i class="pages">1/3</i>
+            </div>
+            <div id="geoDataEntries">
+                <!--dyn. Anhängen der übrigen Div Elemente -->
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Javascript Code -->
+    <script type="text/javascript">
+    //window.onload = function (e) { 
+
+        init() // Map-Initialisierung  
+        
+        // Name der Tracks aus JSON Dateien lesen
+        const json_url = "1.json"
+        async function getData() {
+            const response = await fetch(json_url);
+            const data = await response.json();
+            console.log(data);
+
+            // Koordinaten ausgeben
+            var coords = data.features[0].geometry.coordinates[1];
+            console.log(coords);
+
+            // Name ausgeben
+            const name = data.features[0].properties.name;
+            console.log(name);
+
+           
+
+
+            // Dynamische Erzeugung der Tabelle mit Div Boxen
+            var geoDataEntriesDiv = document.getElementById("geoDataEntries");
+            var innerDiv = document.createElement("div");
+            innerDiv.innerHTML += name;
+            geoDataEntriesDiv.appendChild(innerDiv);
+
+            // on click action auf Tabelleneinträge 
+            innerDiv.onclick = function (e) {
+                console.log("clicked that div!") // hiermit sollte der Weg gezeichnet werden
+                console.log(e.currentTarget.innerHTML)
+            }
+        }
+   
+        getData();
+    
+
+
+
+        // http Schnittstelle URL mit json daten 
+
+
+    </script>
+
+    <p> Breitengrad: <span id="lat"></span>&deg; <br>
+        Längengrad: <span id="lan"></span>&deg; </p>
+
+
+</body>
+
+</html>
