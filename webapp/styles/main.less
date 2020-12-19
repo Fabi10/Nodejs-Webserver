@@ -1,17 +1,21 @@
+
+/* Karte */
 #map {
   flex: 1;
   width: 50px;
-
-  
 }
+/* Bereiche: Karte und Geo-Liste*/
 .content {
   display: flex;
   height: 100%;
 }
+
 body {
-  height: 100vh;
+  height: 100vh; /* Höhe des Viewports*/
   margin: 0;
 }
+
+/* Navigations-Pfeile*/ 
 .arrow {
   border: solid black;
   border-width: 0 3px 3px 0;
@@ -19,28 +23,34 @@ body {
   padding: 3px;
   
 }
+/* rechts */
 .right {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
 }
+
+/* links */
 .left {
   transform: rotate(135deg);
   -webkit-transform: rotate(135deg);
 }
-
+/* Seitenzahl*/
 .pages {
   text-align: center;
 }
 
+/* Container für Track-Tabelle*/
 #geolist{
   background-color: sandybrown;
   width: 300px;
 }
 
+/*Container mit Pfeilen und Seitenanzahl*/
 .header{
   text-align: left;
 }
 
+/* Tabellen-Einträge*/
 .track_boxes{
   padding: 10px;
 }

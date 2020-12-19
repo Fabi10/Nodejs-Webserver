@@ -1,15 +1,50 @@
 {
-  "name": "nodejs-hello-world",
+  "name": "webapp",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "webapp/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "linting": "semistandard webapp/*.js",
+    "lint2":"semistandard webapp/build/*.js",
+    "test": "mocha",
+    
+    "static": " cp webapp/index.html webapp/build && mkdir webapp/build/server && cp -r webapp/js/geodata webapp/build/server/geo_data && cp webapp/js/server.js webapp/build/server",
+    
+    "css": "lessc webapp/styles/main.less webapp/build/main.css",
+    "css:min": "mkdir webapp/build/styles && lessc --clean-css webapp/styles/main.less webapp/build/styles/main.min.css",
+    
+    "js:main": "browserify webapp/map.js -o webapp/build/main.js",
+    "js:min": "terser webapp/build/main.js --compress -mangle --comments=false -o webapp/build/main.min.js",
+    "postjs:min": "rm -f webapp/build/main.js",
+    
+    "start": "node webapp/build/server/server.js",
+    
+    "clean:build": "rm -rf webapp/build",
+    "clean": "npm run clean:build && rm -rf node_modules",
+
+    "predebug": "npm run lint",
+    "debug1": "npm run clean:build && mkdir webapp/build && npm run static && npm run css && npm run js:main",
+    "build": "npm run clean:build && mkdir webapp/build && npm run static && npm run css:min && npm run js:main && npm run js:min",
+    "postbuild": "semistandard --fix webapp/build/main.min.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
-    "geojson": "^0.5.0"
+    "geojson": "^0.5.0",
+    "glob": "^7.1.6",
+    "sonarjs": "^1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^17.0.0",
+    "eslint": "^7.15.0",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "http-server": "^0.12.3",
+    "jshint": "^2.12.0",
+    "less": "^3.13.0",
+    "less-plugin-clean-css": "^1.5.1",
+    "mocha": "^8.2.1",
+    "place": "^1.2.1",
+    "semistandard": "^16.0.0"
   }
 }
