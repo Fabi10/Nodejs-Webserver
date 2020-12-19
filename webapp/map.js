@@ -1,13 +1,25 @@
 // Map initialisieren
 let map;
-function init () {
-  map = L.map('map').setView([49.755, 6.639], 50); // Trier Koordinaten
-  // add the OpenStreetMap tiles
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+function init() {
 
-  }).addTo(map);
+  const L = require('leaflet');
+  const leafletMap = require('leaflet-map');
+  map = leafletMap();
+
+  map = L.map('map').setView([49.755, 6.639], 50); // Trier Koordinaten
+
+  // tilelayer
+  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox-streets-v8/tiles/{z}/{x}/{y}?access_token={accessToken}')
+   .addTo(map);
+
+
+
+  // add the OpenStreetMap tiles Original
+  //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  // maxZoom: 19,
+  //attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+
+  //}).addTo(map);
 
   // show the scale bar on the lower left corner
   L.control.scale().addTo(map);
@@ -23,7 +35,7 @@ function init () {
 init();
 
 // Name der Tracks aus JSON Dateien lesen
-async function getData () {
+async function getData() {
   const jsonUrl = '1.json';
   const response = await fetch(jsonUrl);
   const data = await response.json();
