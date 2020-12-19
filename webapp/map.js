@@ -1,30 +1,32 @@
-// Map initialisieren
-let map;
-function init() {
 
-  const L = require('leaflet');
+let map;
+// neu eingefügt
+const L = require('leaflet');
+
+// Map initialisieren
+function init () {
+  // neuer Code: habe npm Module leaflet + leaflet-map installiert
   const leafletMap = require('leaflet-map');
   map = leafletMap();
 
   map = L.map('map').setView([49.755, 6.639], 50); // Trier Koordinaten
 
   // tilelayer
-  L.tileLayer('https://api.mapbox.com/styles/v1/mapbox-streets-v8/tiles/{z}/{x}/{y}?access_token={accessToken}')
-   .addTo(map);
+  L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: 'https://openstreetmap.org/copyright',
+    maxZoom: 19
+  }).addTo(map);
 
-
-
-  // add the OpenStreetMap tiles Original
-  //L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  // add the OpenStreetMap tiles -alter Code-
+  // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   // maxZoom: 19,
-  //attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-
-  //}).addTo(map);
+  // attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+  // }).addTo(map);
 
   // show the scale bar on the lower left corner
   L.control.scale().addTo(map);
 
-  // show a marker on the map
+  // show a marker on the map (wird komisch angezeigt)
   const marker = L.marker([49.755, 6.639]);
   marker.addTo(map);
   marker.bindPopup('Sie befinden sich in Trier').openPopup();
@@ -35,7 +37,7 @@ function init() {
 init();
 
 // Name der Tracks aus JSON Dateien lesen
-async function getData() {
+async function getData () {
   const jsonUrl = '1.json';
   const response = await fetch(jsonUrl);
   const data = await response.json();
