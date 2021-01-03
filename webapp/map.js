@@ -1,6 +1,5 @@
 
 let map;
-// neu eingefügt
 const L = require('leaflet');
 
 // Map initialisieren
@@ -9,7 +8,7 @@ function init () {
   const leafletMap = require('leaflet-map');
   map = leafletMap();
 
-  map = L.map('map').setView([49.755, 6.639], 50); // Trier Koordinaten
+  map = L.map('map').setView([49.755, 6.639], 14); // Trier Koordinaten
 
   // tilelayer
   L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -17,24 +16,14 @@ function init () {
     maxZoom: 19
   }).addTo(map);
 
-  // add the OpenStreetMap tiles -alter Code-
-  // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  // maxZoom: 19,
-  // attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-  // }).addTo(map);
-
   // show the scale bar on the lower left corner
   L.control.scale().addTo(map);
-
-  // show a marker on the map (wird komisch angezeigt)
-  const marker = L.marker([49.755, 6.639]);
-  marker.addTo(map);
-  marker.bindPopup('Sie befinden sich in Trier').openPopup();
 
   // map.setView() --> Map zentrieren
 }
 
 init();
+const fetch = require('node-fetch');
 
 // Name der Tracks aus JSON Dateien lesen
 async function getData () {
@@ -53,19 +42,19 @@ async function getData () {
 
   // var xhttp = new XMLHttpRequest();
 
-  // Ansazt: Leere Layer anlegen und später feature-s hinzufügen
+  // Ansazt: Leeren Layer anlegen und später features hinzufügen
   // var myLayer = L.geoJSON().addTo(map);
   // myLayer.addData(geojsonFeature);
 
-  // Dynamische Erzeugung der Tabelle mit Div Boxen
+  // Dynamische Erzeugung der Tabelle mit Div Containern
   const geoDataEntriesDiv = document.getElementById('geoDataEntries');
   const innerDiv = document.createElement('div');
   innerDiv.id = 'track_boxes';
   innerDiv.innerHTML += name;
   geoDataEntriesDiv.appendChild(innerDiv);
 
-  // on click action auf Tabelleneinträge
-  innerDiv.onclick = function (e) {
+  // auf Tabelleneinträge reagieren
+  innerDiv.addEventListener('click', event => {
     // Weg auf Karte plotten
     const feature = data.features[0];
     // rote Linie
@@ -76,14 +65,14 @@ async function getData () {
       style: myStyle
     }).addTo(map);
 
-    // Map zentrieren
+    // Map auf jeweilige Strecke zentrieren
     // var coords2 = data.features[0].geometry.coordinates[200][0];
     // map.setView(coords2, 5);
 
     // Überprüfung
     console.log('clicked that div!');
-    console.log(e.currentTarget.innerHTML);
-  };
+    console.log(event.currentTarget.innerHTML);
+  });
 }
 
 getData();

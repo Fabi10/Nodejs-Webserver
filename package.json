@@ -1,11 +1,10 @@
 {
   "name": "webapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "This is a webapp",
   "main": "webapp/server.js",
   "scripts": {
-    "lint": "semistandard webapp/*.js",
-    "lint2": "semistandard webapp/build/*.js",
+    "lint": "semistandard webapp/*.js && semistandard webapp/js/*.js",
     "test": "mocha",
     "static": " cp webapp/index.html webapp/build && mkdir webapp/build/server && cp -r webapp/js/geodata webapp/build/server/geo_data && cp webapp/js/server.js webapp/build/server",
     "css": "lessc webapp/styles/main.less webapp/build/main.css",
@@ -17,29 +16,27 @@
     "clean:build": "rm -rf webapp/build",
     "clean": "npm run clean:build && rm -rf node_modules",
     "predebug": "npm run lint",
-    "debug1": "npm run clean:build && mkdir webapp/build && npm run static && npm run css && npm run js:main",
+    "debug": "npm run clean:build && mkdir webapp/build && npm run static && npm run css && npm run js:main",
     "build": "npm run clean:build && mkdir webapp/build && npm run static && npm run css:min && npm run js:main && npm run js:min",
-    "postbuild": "semistandard --fix webapp/build/main.min.js"
+    "prebuild": "npm run lint"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "eslint": "^7.16.0",
     "express": "^4.17.1",
+    "fetch": "^1.1.0",
     "geojson": "^0.5.0",
-    "glob": "^7.1.6",
     "leaflet": "^1.7.1",
     "leaflet-map": "^0.2.1",
-    "mapbox.js": "^3.3.1"
+    "node-fetch": "^2.6.1"
   },
   "devDependencies": {
     "browserify": "^17.0.0",
-    "eslint": "^7.15.0",
-    "http-server": "^0.12.3",
-    "jshint": "^2.12.0",
     "less": "^3.13.0",
     "less-plugin-clean-css": "^1.5.1",
     "mocha": "^8.2.1",
-    "place": "^1.2.1",
-    "semistandard": "^16.0.0"
+    "semistandard": "^16.0.0",
+    "terser": "^5.5.1"
   }
 }
