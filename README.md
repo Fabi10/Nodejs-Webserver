@@ -1,5 +1,5 @@
 # Nodejs-Webserver
-🗺 Web Application
+Web Application
 
 Dies war ein Projekt im Modul Web-Entwicklung. Dabei wurde eine Web-Anwendung zur Anzeige von Geo-Tracks auf einer Streetmap entwickelt.
 
